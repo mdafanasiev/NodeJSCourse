@@ -25,20 +25,22 @@ function oneThreadSolution() {
 }
 
 function multithreadSolution() {
-  return new Promise((resolve, reject) => {
-    let sum = 0;
-    performance.mark("multithread start");
-
-    for (const arrayPart of chunk(bigArray, bigArray.length / CORES_NUMBER)) {
-      const worker = new Worker("./worker.js", { workerData: arrayPart });
-      worker.on("message", (res) => {
-        sum += res;
-      });
-    }
-    performance.mark("multithread end");
-    performance.measure("multithread", "multithread start", "multithread end");
-    resolve(sum);
-  });
+  let sum = 0;
+  const workerPromises = [];
+  performance.mark("multithread start");
+  for (const arrayPart of chunk(bigArray, bigArray.length / CORES_NUMBER)) {
+      workerPromises.push( new Promise((resolve, reject) => {
+        const worker = new Worker("./worker.js", { workerData: arrayPart });
+        worker.on("message", (res) => {
+          sum += res;
+          resolve(res)});
+      }));
+  }
+  
+  const finalPromise =  Promise.all(workerPromises); 
+  performance.mark("multithread end");
+  performance.measure("multithread", "multithread start", "multithread end");
+  return finalPromise;
 }
 
 const main = async() => {
