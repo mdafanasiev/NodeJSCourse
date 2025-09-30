@@ -43,6 +43,10 @@ const saveLanguage = async (lang) => {
 const getForcast = async () => {
 	try {
 		const cities = process.env.CITIES ?? await getKeyValue(TOKEN_DICTIONARY.cities);
+		if (!cities) {
+			throw new Error('Не задан город');
+		}
+		
 		for (const city of cities) {
 		  const weatherWorker = new Worker("./workers/weather.worker.js", { workerData: city });
 		  weatherWorker.on('message', (weather) => {
