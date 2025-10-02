@@ -1,0 +1,19 @@
+{
+    "name": "weather-api",
+    "version": "1.0.0",
+    "description": "",
+    "type": "module",
+    "scripts": {
+        "startServer": "node --env-file=.env server.js",
+        "startClient": "node client.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Maksim Afanasev",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^1.12.2",
+        "chalk": "^5.6.2",
+        "dedent-js": "^1.0.1",
+        "express": "^5.1.0"
+    }
+}
