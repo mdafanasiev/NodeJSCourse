@@ -9,7 +9,7 @@ const printWeather = (res) => {
     console.log(
         dedent`${chalk.bgYellow(" WEATHER ")} Погода в городе ${res.city}
 		${res.desc}
-		Температура: ${res.temp})
+		Температура: ${res.temp}
 		Влажность: ${res.humidity}%
 		Скорость ветра: ${res.windSpeed}
 		`
