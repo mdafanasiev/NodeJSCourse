@@ -30,7 +30,7 @@ app.use((err, req, res, next) => {
 app.listen(port, () => console.log("Server has started!"));
 
 async function getWeatherData(city) {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${token}&units=metric?lang=ru`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${token}&units=metric&lang=ru`;
     try {
         const { data } = await axios.get(url);
         return data;
